@@ -1,9 +1,12 @@
 import React from 'react';
 
-var Word = (props) => (
-  <div>
-    I am a word.
-  </div>
-)
+var Word = (props) => {
+  const {word} = props;
+  return (
+    <div>
+      <b>{word.word}</b> : <em>{word.definition}</em>
+    </div>
+  )
+}
 
 export default Word;

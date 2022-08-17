@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { render } from "react-dom";
 import WordList from './components/WordList.jsx';
 
@@ -13,14 +14,15 @@ class App extends React.Component {
 
   componentDidMount () {
     axios.get('/glossary')
-    .then()
-    .catch()
+    .then(glossary=>{this.setState({glossary: glossary.data})})
+    .catch(err=>console.log(err));
   }
 
   render () {
     return (
       <div>
-        <WordList />
+        <h2>My Personal Glossary</h2>
+        <WordList glossary={this.state.glossary}/>
       </div>
     )
   }
