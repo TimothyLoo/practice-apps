@@ -25,5 +25,13 @@ module.exports = {
 
   addWord: (wordObj)=>{
     return Word.replaceOne({word: wordObj.word}, wordObj, {upsert: true})
+  },
+
+  deleteWord: (word)=>{
+    return Word.deleteOne(word)
+  },
+
+  editWord: (wordObj)=>{
+    return Word.replaceOne({word: wordObj.word}, wordObj)
   }
 }

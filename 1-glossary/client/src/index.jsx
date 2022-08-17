@@ -15,6 +15,8 @@ class App extends React.Component {
 
     this.search = this.search.bind(this);
     this.add = this.add.bind(this);
+    this.deleteW = this.deleteW.bind(this);
+    this.edit = this.edit.bind(this);
   }
 
   componentDidMount () {
@@ -42,13 +44,36 @@ class App extends React.Component {
     .catch(err=>console.log(err));
   }
 
+  deleteW (word) {
+    axios.delete('/glossary', {data: {word: word}})
+    .then(qRes=>{
+      console.log(qRes)
+      return axios.get('/glossary')
+    })
+    .then(glossary=>this.setState({glossary: glossary.data}))
+    .catch(err=>console.log(err));
+  }
+
+  edit (word, newDef) {
+    axios.put('/glossary',{word: word, definition: newDef})
+    .then(qRes=>{
+      console.log(qRes)
+      return axios.get('/glossary')
+    })
+    .then(glossary=>this.setState({glossary: glossary.data}))
+    .catch(err=>console.log(err));
+  }
+
   render () {
     return (
       <div>
         <h2>My Personal Glossary</h2>
         <Search search={this.search}/>
         <Add add={this.add}/>
-        <WordList glossary={this.state.glossary}/>
+        <WordList
+          glossary={this.state.glossary}
+          deleteW={this.deleteW}
+          edit={this.edit}/>
       </div>
     )
   }

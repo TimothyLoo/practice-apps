@@ -1,12 +1,15 @@
 import React from 'react';
 
 var Word = (props) => {
-  const {word} = props;
+  const {word, deleteW, edit} = props;
   return (
     <div>
       <b>{word.word}</b> : <em>{word.definition}</em>
-      <button>Edit</button>
-      <button>Delete</button>
+      <button onClick={()=>{
+        let newDef = prompt(`What is the new definition for ${word.word}?`);
+        edit(word.word, newDef);
+      }}>Edit</button>
+      <button onClick={()=>deleteW(word.word)}>Delete</button>
     </div>
   )
 }

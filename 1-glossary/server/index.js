@@ -22,5 +22,17 @@ app.post('/glossary',(req, res)=>{
   .catch(err=>res.send(err));
 });
 
+app.delete('/glossary', (req, res)=>{
+  models.deleteWord(req.body)
+  .then((qRes)=>res.send(qRes))
+  .catch(err=>res.send(err));
+});
+
+app.put('/glossary', (req, res)=>{
+  models.editWord(req.body)
+  .then((qRes)=>res.send(qRes))
+  .catch(err=>res.send(err));
+});
+
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
