@@ -5,6 +5,7 @@ var Search = (props) => {
   return (
     <div>
       <input
+        className="searchBar"
         placeholder="Search for a word or definition..."
         onChange={(e)=>search(e.target.value)}
       />

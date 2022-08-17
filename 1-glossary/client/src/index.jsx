@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from 'react-dom';
 import axios from 'axios';
-// import { render } from "react-dom";
+import { render } from "react-dom";
 import Add from './components/Add.jsx';
 import Search from './components/Search.jsx';
 import WordList from './components/WordList.jsx';
@@ -79,5 +78,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
-// document.getElementById("root")
+render(<App />, document.getElementById("root"));
