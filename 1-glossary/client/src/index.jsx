@@ -14,6 +14,7 @@ class App extends React.Component {
     }
 
     this.search = this.search.bind(this);
+    this.add = this.add.bind(this);
   }
 
   componentDidMount () {
@@ -31,12 +32,22 @@ class App extends React.Component {
     .catch(err=>console.log(err));
   }
 
+  add (word, def) {
+    axios.post('/glossary', {word: word, definition: def})
+    .then(qRes=>{
+      console.log(qRes)
+      return axios.get('/glossary')
+    })
+    .then(glossary=>this.setState({glossary: glossary.data}))
+    .catch(err=>console.log(err));
+  }
+
   render () {
     return (
       <div>
         <h2>My Personal Glossary</h2>
         <Search search={this.search}/>
-        <Add />
+        <Add add={this.add}/>
         <WordList glossary={this.state.glossary}/>
       </div>
     )
