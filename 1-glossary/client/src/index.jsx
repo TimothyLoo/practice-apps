@@ -6,6 +6,15 @@ import WordList from './components/WordList.jsx';
 class App extends React.Component {
   constructor (props) {
     super(props);
+    this.state = {
+      glossary: []
+    }
+  }
+
+  componentDidMount () {
+    axios.get('/glossary')
+    .then()
+    .catch()
   }
 
   render () {

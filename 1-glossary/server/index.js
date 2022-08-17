@@ -10,11 +10,15 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // routes & controllers
 app.get('/glossary',(req, res)=>{
-  res.send('Successful Get')
+  models.getWords()
+  .then(qResults=>res.send(qResults))
+  .catch(err=>res.send(err));
 });
 
 app.post('/glossary',(req, res)=>{
-  res.send('Successful Post')
+  models.addWord({word: 'Tim', definition: 'Used to swim'})
+  .then(()=>res.send('Successful Post'))
+  .catch(err=>res.send(err));
 });
 
 app.listen(process.env.PORT);

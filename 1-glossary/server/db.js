@@ -12,10 +12,18 @@ const wordSchema = new mongoose.Schema({
 
 const Word = mongoose.model('Word', wordSchema);
 
-mongoose.createConnection('mongodb://localhost/glossary');
+// mongoose.createConnection('mongodb://localhost/glossary');
+
+mongoose.connect('mongodb://localhost/glossary');
 
 // models
 
 module.exports = {
+  getWords: ()=>{
+    return Word.find()
+  },
 
+  addWord: (wordObj)=>{
+    return Word.replaceOne({word: wordObj.word}, wordObj, {upsert: true})
+  }
 }
