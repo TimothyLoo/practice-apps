@@ -3,7 +3,7 @@ import React from 'react';
 var Search = (props) => {
   const {search} = props;
   return (
-    <div>
+    <div className="search">
       <input
         className="searchBar"
         placeholder="Search for a word or definition..."

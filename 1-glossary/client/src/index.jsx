@@ -106,7 +106,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <h2>My Personal Glossary</h2>
+        <h2 className="appHeader">My Personal Glossary</h2>
         <Search search={this.search}/>
         <Add add={this.add}/>
         <WordList

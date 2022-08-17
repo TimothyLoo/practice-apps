@@ -59,6 +59,27 @@ main {
   margin: auto;
 }
 
+#root {
+  margin: auto;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.appHeader {
+  text-align: center;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+}
+
 .searchBar {
   width: 250px;
+}
+
+.word {
+  display: flex;
+  justify-content: space-between;
 }
