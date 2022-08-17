@@ -5,6 +5,8 @@ var Word = (props) => {
   return (
     <div>
       <b>{word.word}</b> : <em>{word.definition}</em>
+      <button>Edit</button>
+      <button>Delete</button>
     </div>
   )
 }
