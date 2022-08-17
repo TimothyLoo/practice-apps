@@ -1,9 +1,21 @@
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from 'react-dom';
+// import { render } from "react-dom";
+import WordList from './components/WordList.jsx';
 
-render(
-  <div>
-    <p>Hello, World!</p>
-  </div>,
-  document.getElementById("root")
-);
+class App extends React.Component {
+  constructor (props) {
+    super(props);
+  }
+
+  render () {
+    return (
+      <div>
+        <WordList />
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
+// document.getElementById("root")
