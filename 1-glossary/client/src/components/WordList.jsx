@@ -7,12 +7,18 @@ class WordList extends React.Component{
   }
 
   render () {
-  const {glossary, deleteW, edit, turnPage, page, glossMax} = this.props;
+  const {glossary, deleteW, edit, turnPage, page, glossMax, flashCardMode} = this.props;
 
   return (
       <div>
         {glossary.map(word=>
-          <Word word={word} key={word.word} deleteW={deleteW} edit={edit}/>
+          <Word
+            word={word}
+            key={word.word}
+            deleteW={deleteW}
+            edit={edit}
+            flashCardMode={flashCardMode}
+          />
         )}
         <br/>
         <br/>

@@ -1,11 +1,14 @@
 import React from 'react';
 
 var Word = (props) => {
-  const {word, deleteW, edit} = props;
+  const {word, deleteW, edit, flashCardMode} = props;
+  let hidden = flashCardMode;
+
   return (
     <div className="word">
       <div className="wdAndDef">
-        <b>{word.word}</b> : <em>{word.definition}</em>
+        <b onClick={()=>{hidden = !hidden; console.log(hidden);}}>{word.word}</b> :
+        {(flashCardMode) ? null : <em> {word.definition}</em>}
       </div>
       <div className="wordBut">
         <button onClick={()=>{

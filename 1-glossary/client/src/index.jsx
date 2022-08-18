@@ -11,7 +11,8 @@ class App extends React.Component {
     this.state = {
       glossary: [],
       glossMax: 0,
-      page: 0
+      page: 0,
+      flashCardMode: false
     }
 
     this.search = this.search.bind(this);
@@ -108,6 +109,7 @@ class App extends React.Component {
     return (
       <div>
         <h2 className="appHeader">My Personal Glossary</h2>
+        <button onClick={()=>this.setState({flashCardMode: !this.state.flashCardMode})}>Flash Card Mode</button>
         <Search search={this.search}/>
         <Add add={this.add}/>
         <WordList
@@ -116,7 +118,9 @@ class App extends React.Component {
           edit={this.edit}
           turnPage={this.turnPage}
           page={this.state.page}
-          glossMax={this.state.glossMax}/>
+          glossMax={this.state.glossMax}
+          flashCardMode= {this.state.flashCardMode}
+        />
       </div>
     )
   }
