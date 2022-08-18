@@ -19,8 +19,19 @@ mongoose.connect('mongodb://localhost/glossary');
 // models
 
 module.exports = {
-  getWords: ()=>{
-    return Word.find()
+  getWords: (skip)=>{
+    let count;
+    return Word.estimatedDocumentCount()
+    .then(totCount=>{
+      count = totCount;
+      return (skip === undefined) ? Word.find() : Word.find().skip(skip).limit(10)
+    })
+    .then(array=>{
+      return {
+        array: array,
+        size: count
+      }
+    })
   },
 
   addWord: (wordObj)=>{

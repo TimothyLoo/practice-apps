@@ -10,7 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       glossary: [],
-      filtered: [],
+      glossMax: 0,
       page: 0
     }
 
@@ -22,85 +22,86 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('/glossary')
-    .then(glossary=>this.setState({
-      glossary: glossary.data,
-      filtered: glossary.data.slice(0, 10)
-    }))
+    axios.get('/glossary', {params: {skip: this.state.page}})
+    .then(results=>{
+      this.setState({
+        glossary: results.data.array,
+        glossMax: results.data.size
+      })
+    })
     .catch(err=>console.log(err));
   }
 
   search (query) {
-    if (!query.length) {this.setState({filtered: this.state.glossary.slice(0, 10)})}
-    else {
-      let filtered = this.state.glossary.filter(word=>
-        word.word.toLowerCase().includes(query.toLowerCase()) ||
-        word.definition.toLowerCase().includes(query.toLowerCase())
-      );
-      this.setState({filtered: filtered});
+    if (!query.length) {
+      let start = this.state.page * 10;
+      axios.get('/glossary', {params: {skip: start}})
+      .then(results=>this.setState({glossary: results.data.array}))
+      .catch(err=>console.log(err));
+    } else {
+      axios.get('/glossary')
+      .then(results=>{
+        let filtered = results.data.array.filter(word=>
+          word.word.toLowerCase().includes(query.toLowerCase()) ||
+          word.definition.toLowerCase().includes(query.toLowerCase())
+        );
+        this.setState({glossary: filtered})
+      })
+      .catch(err=>console.log(err));
     }
   }
 
   add (word, def) {
     if (!word || !def) { return; }
     axios.post('/glossary', {word: word, definition: def})
-    .then(qRes=>{
-      console.log(qRes)
-      return axios.get('/glossary')
-    })
-    .then(glossary=>{
+    .then(()=>{
       let start = this.state.page * 10;
-      let end = this.state.page * 10 + 10;
-      this.setState({
-        glossary: glossary.data,
-        filtered: glossary.data.slice(start, end)
-      })
+      return axios.get('/glossary', {params: {skip: start}})
     })
+    .then(results=>this.setState({
+        glossary: results.data.array,
+        glossMax: results.data.size
+    }))
     .catch(err=>console.log(err));
   }
 
   deleteW (word) {
     axios.delete('/glossary', {data: {word: word}})
-    .then(qRes=>{
-      console.log(qRes)
-      return axios.get('/glossary')
-    })
-    .then(glossary=>{
+    .then(()=>{
       let start = this.state.page * 10;
-      let end = this.state.page * 10 + 10;
-      this.setState({
-        glossary: glossary.data,
-        filtered: glossary.data.slice(start, end)
-      })
+      return axios.get('/glossary', {params: {skip: start}})
     })
+    .then(results=>{this.setState({
+        glossary: results.data.array,
+        glossMax: results.data.size
+      })})
     .catch(err=>console.log(err));
   }
 
   edit (word, newDef) {
     if (!newDef) { return; }
     axios.put('/glossary',{word: word, definition: newDef})
-    .then(qRes=>{
-      console.log(qRes)
-      return axios.get('/glossary')
-    })
-    .then(glossary=>{
+    .then(()=>{
       let start = this.state.page * 10;
-      let end = this.state.page * 10 + 10;
-      this.setState({
-        glossary: glossary.data,
-        filtered: glossary.data.slice(start, end)
-      })
+      return axios.get('/glossary', {params: {skip: start}})
     })
+    .then(results=>{this.setState({
+        glossary: results.data.array,
+      })})
     .catch(err=>console.log(err));
   }
 
   turnPage (direction) {
     let start = (this.state.page + direction) * 10;
-    let end = (this.state.page + direction) * 10 + 10;
-    this.setState({
-      page: this.state.page + direction,
-      filtered: this.state.glossary.slice(start, end)
+    axios.get('/glossary', {params: {skip: start}})
+    .then(results=>{
+      this.setState({
+        glossary: results.data.array,
+        glossMax: results.data.size,
+        page: this.state.page + direction
+      })
     })
+    .catch(err=>console.log(err));
   }
 
   render () {
@@ -110,12 +111,12 @@ class App extends React.Component {
         <Search search={this.search}/>
         <Add add={this.add}/>
         <WordList
-          glossary={this.state.filtered}
+          glossary={this.state.glossary}
           deleteW={this.deleteW}
           edit={this.edit}
           turnPage={this.turnPage}
           page={this.state.page}
-          glossMax={this.state.glossary.length}/>
+          glossMax={this.state.glossMax}/>
       </div>
     )
   }

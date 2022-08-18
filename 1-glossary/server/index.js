@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // routes & controllers
 app.get('/glossary',(req, res)=>{
-  models.getWords()
+  models.getWords(req.query.skip)
   .then(qResults=>res.send(qResults))
   .catch(err=>res.send(err));
 });
