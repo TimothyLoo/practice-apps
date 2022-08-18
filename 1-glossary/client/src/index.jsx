@@ -109,7 +109,10 @@ class App extends React.Component {
     return (
       <div>
         <h2 className="appHeader">My Personal Glossary</h2>
-        <button onClick={()=>this.setState({flashCardMode: !this.state.flashCardMode})}>Flash Card Mode</button>
+        <button
+          style={(this.state.flashCardMode) ? {backgroundColor: 'lightgreen'} : null}
+          onClick={()=>this.setState({flashCardMode: !this.state.flashCardMode})}
+        >Flash Card Mode</button>
         <Search search={this.search}/>
         <Add add={this.add}/>
         <WordList
