@@ -14,10 +14,11 @@ class Word extends React.Component {
     return (
       <div className="word">
         <div className="wdAndDef">
-          <b onClick={()=>(flashCardMode) ? this.setState({hidden: !this.state.hidden}) : null}
-          >{word.word}</b> :
-          {(flashCardMode) ? null : <em> {word.definition}</em>}
-          {(this.state.hidden) ? null : <em> {word.definition}</em>}
+          <b
+            style={(flashCardMode) ? {cursor: 'pointer'} : null}
+            onClick={()=>(flashCardMode) ? this.setState({hidden: !this.state.hidden}) : null}
+          >{word.word} : </b>
+          {(!flashCardMode) ? <em> {word.definition}</em> : (this.state.hidden) ? null : <em> {word.definition}</em>}
         </div>
         <div className="wordBut">
           <button onClick={()=>{
