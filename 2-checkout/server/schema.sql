@@ -1,0 +1,14 @@
+-- CREATE DATABASE `checkout`;
+
+USE `checkout`;
+
+DROP TABLE IF EXISTS `responses`;
+
+CREATE TABLE IF NOT EXISTS `responses` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `s_id` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(16) NOT NULL
+);
+
