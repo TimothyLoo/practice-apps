@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `shipping_info` (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `s_id` VARCHAR(255) NOT NULL,
   `address_1` VARCHAR(50) NOT NULL,
-  `address_2` VARCHAR(50),
+  `address_2` VARCHAR(50) NOT NULL,
   `city` VARCHAR(50) NOT NULL,
   `state` VARCHAR(50) NOT NULL,
   `zip` VARCHAR(6) NOT NULL

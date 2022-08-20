@@ -14,6 +14,21 @@ class F3 extends React.Component {
     this.createBillInfo = this.createBillInfo.bind(this);
   }
 
+  componentDidMount () {
+    axios.get('/billingInfo')
+    .then(results=>{
+      if (results.data[0]) {
+        this.setState({
+          ccn: results.data[0].ccn,
+          expDt: results.data[0].expDt,
+          cvv: results.data[0].cvv,
+          billZip: results.data[0].bill_zip
+        })
+      }
+    })
+    .catch(err=>console.log(err));
+  }
+
   createBillInfo () {
     axios.post('/billingInfo',{
       ccn: this.state.ccn,
@@ -32,19 +47,19 @@ class F3 extends React.Component {
       <div>
         <p>Form 3: Billing Info</p>
           <b>Credit Card #: </b><input
-            type="text" placeholder="Credit Card #..." required
+            type="text" placeholder="Credit Card #..." value={this.state.ccn} required
             onChange={(e)=>this.setState({ccn: e.target.value})}
           />
           <b>Exp date: </b><input
-            type="text" placeholder="Exp Date..." required
+            type="text" placeholder="Exp Date..." value={this.state.expDt} required
             onChange={(e)=>this.setState({expDt: e.target.value})}
           />
           <b>CVV: </b><input
-            type="text" placeholder="CVV..." required
+            type="text" placeholder="CVV..." value={this.state.cvv} required
             onChange={(e)=>this.setState({cvv: e.target.value})}
           />
           <b>Billing Zip Code: </b><input
-            type="text" placeholder="Billing Zip Code..." required
+            type="text" placeholder="Billing Zip Code..." value={this.state.billZip} required
             onChange={(e)=>this.setState({billZip: e.target.value})}
           />
         <button onClick={()=>changePage('f2')}>Prev Page</button>

@@ -6,13 +6,29 @@ class F2 extends React.Component {
     super (props);
     this.state = {
       address_1: '',
-      address_2: null,
+      address_2: '',
       city: '',
       state: '',
       zip: ''
     }
 
     this.createShipInfo = this.createShipInfo.bind(this);
+  }
+
+  componentDidMount () {
+    axios.get('/shippingInfo')
+    .then(results=>{
+      if (results.data[0]) {
+        this.setState({
+          address_1: results.data[0].address_1,
+          address_2: results.data[0].address_2,
+          city: results.data[0].city,
+          state: results.data[0].state,
+          zip: results.data[0].zip
+        })
+      }
+    })
+    .catch(err=>console.log(err));
   }
 
   createShipInfo () {
@@ -34,25 +50,25 @@ class F2 extends React.Component {
       <div>
         <p>Form 2: Shipping Info</p>
           <b>Address line 1: </b><input
-            type="text" placeholder="Address line 1..." required
+            type="text" placeholder="Address line 1..." value={this.state.address_1} required
             onChange={(e)=>this.setState({address_1: e.target.value})}
           />
           <b>Address line 2: </b><input
-            type="text" placeholder="Address line 2..."
+            type="text" placeholder="Address line 2..." value={this.state.address_2}
             onChange={(e)=>this.setState({
               address_2: (e.target.value.length) ? e.target.value : null
             })}
           />
           <b>City: </b><input
-            type="text" placeholder="City..." required
+            type="text" placeholder="City..." value={this.state.city} required
             onChange={(e)=>this.setState({city: e.target.value})}
           />
           <b>State: </b><input
-            type="text" placeholder="State..." required
+            type="text" placeholder="State..." value={this.state.state} required
             onChange={(e)=>this.setState({state: e.target.value})}
           />
           <b>Zip Code: </b><input
-            type="text" placeholder="Zip Code..." required
+            type="text" placeholder="Zip Code..." value={this.state.zip} required
             onChange={(e)=>this.setState({zip: e.target.value})}
           />
         <button onClick={()=>changePage('f1')}>Prev Page</button>
