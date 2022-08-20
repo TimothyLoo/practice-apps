@@ -41,7 +41,7 @@ class F1 extends React.Component {
     const {changePage} = this.props;
 
     return (
-      <div>
+      <div className="form">
         <p>Form 1: Account Creation</p>
         <b>Name: </b><input
           type="text" placeholder="Your name..." value={this.state.name} required

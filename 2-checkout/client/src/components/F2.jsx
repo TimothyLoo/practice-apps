@@ -47,7 +47,7 @@ class F2 extends React.Component {
     const {changePage} = this.props;
 
     return (
-      <div>
+      <div className="form">
         <p>Form 2: Shipping Info</p>
           <b>Address line 1: </b><input
             type="text" placeholder="Address line 1..." value={this.state.address_1} required

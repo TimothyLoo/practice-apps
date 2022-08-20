@@ -44,7 +44,7 @@ class F3 extends React.Component {
     const {changePage} = this.props;
 
     return (
-      <div>
+      <div className="form">
         <p>Form 3: Billing Info</p>
           <b>Credit Card #: </b><input
             type="text" placeholder="Credit Card #..." value={this.state.ccn} required
